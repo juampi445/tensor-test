@@ -4,8 +4,8 @@ const path = require('path');
 
 const FROM_FORMAT = "jpg"
 const TO_FORMAT = "jpeg"
-const FROM_DIR = "data/temp"
-const TO_DIR = "data/test"
+const FROM_DIR = "data" +  "\\" + "temp"
+const TO_DIR = "data" +  "\\" + "train"
 const SIZE_W = 96
 const SIZE_H = 96
 // const LOW_QUALITY = 10
