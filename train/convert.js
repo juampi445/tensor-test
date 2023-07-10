@@ -31,6 +31,11 @@ const convert = (dataDir) => {
       else {
         image.resize(SIZE_W,SIZE_H)
 
+        if (i.toLowerCase().includes("badquality")) {
+          // image.quality(LOW_QUALITY);
+          image.blur(BLUR)
+        }
+
         const newFileName = i
           .replace("." + FROM_FORMAT, "." + TO_FORMAT)
           .replace(FROM_DIR, TO_DIR)
