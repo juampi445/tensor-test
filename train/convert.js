@@ -8,6 +8,9 @@ const FROM_DIR = "data/temp"
 const TO_DIR = "data/test"
 const SIZE_W = 96
 const SIZE_H = 96
+// const LOW_QUALITY = 10
+// const HIGH_QUALITY = 90 
+const BLUR = 1
 
 const convert = (dataDir) => {
   let filesToProccess = []
