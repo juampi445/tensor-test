@@ -40,14 +40,13 @@ const convert = (dataDir) => {
         //   // image.quality(LOW_QUALITY);
         //   image.blur(BLUR)
         // }
-
         const newFileName = i
           .replace("." + FROM_FORMAT, "." + TO_FORMAT)
           .replace(FROM_DIR, TO_DIR)
-          console.log("newFileName","./" + newFileName)
-        image.write("./" + newFileName)
-        image.blur(BLUR).write("./" + newFileName.replace("goodQuality", "blured"))
-        image.brightness(BRIGHTNESS).write("./" + newFileName.replace("goodQuality", "bright"))
+          image.write("./" + newFileName)
+          image.blur(BLUR).write("./" + newFileName)
+          image.clone().cloneQuiet().blur(BLUR).write("./" + newFileName.replace("goodQuality", "blured"))
+          image.clone().cloneQuiet().brightness(BRIGHTNESS).write("./" + newFileName.replace("goodQuality", "bright"))
       }
     })
   }) 

@@ -35,16 +35,19 @@ $("#predict-button").click(async function () {
 	let predictions = await model.predict(tensor).data();
 	let top5 = Array.from(predictions)
 		.map(function (p, i) { // this is Array.map
+			console.log(i, 'qsy')
 			return {
 				probability: p,
 				className: TARGET_CLASSES[i] // we are selecting the value from the obj
 			};
 		}).sort(function (a, b) {
 			return b.probability - a.probability;
-		}).slice(0, 2);
+		}).slice(0, 3);
 
 	$("#prediction-list").empty();
 	top5.forEach(function (p) {
 		$("#prediction-list").append(`<li>${p.className}: ${p.probability.toFixed(6)}</li>`);
 		});
+		console.log(predictions, top5, 'data', TARGET_CLASSES)
+
 });

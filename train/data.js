@@ -29,9 +29,11 @@ function loadImages(dataDir) {
       .div(tf.scalar(255.0))
       .expandDims();
     images.push(imageTensor);
-
-    var InvalidFormat = files[i].toLocaleLowerCase().indexOf("badQuality") != -1;
-    labels.push(InvalidFormat ? 1 : 0);
+    console.log(files[i], 'file')
+    if (files[i].toLocaleLowerCase().includes('blur')) labels.push(1);
+    else if (files[i].toLocaleLowerCase().includes('bright')) labels.push(2);
+    else labels.push(0);
+    console.log(labels, 'labels')
   }
 
   return [images, labels];
@@ -48,21 +50,23 @@ class TuberculosisDataset {
   loadData() {
     console.log('Loading images...');
     this.trainData = loadImages(TRAIN_IMAGES_DIR);
-    this.testData = loadImages(TEST_IMAGES_DIR);
+    //TODO: parece que cuando corres el train usa la testData, 
+    //entonces le cambie la direccion para que use las imagenes de /train
+    this.testData = loadImages(TRAIN_IMAGES_DIR);
     console.log('Images loaded successfully.')
   }
 
   getTrainData() {
     return {
       images: tf.concat(this.trainData[0]),
-      labels: tf.oneHot(tf.tensor1d(this.trainData[1], 'int32'), 2).toFloat()
+      labels: tf.oneHot(tf.tensor1d(this.trainData[1], 'int32'), 3).toFloat()
     }
   }
 
   getTestData() {
     return {
       images: tf.concat(this.testData[0]),
-      labels: tf.oneHot(tf.tensor1d(this.testData[1], 'int32'), 2).toFloat()
+      labels: tf.oneHot(tf.tensor1d(this.testData[1], 'int32'), 3).toFloat()
     }
   }
 }
