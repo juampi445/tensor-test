@@ -11,7 +11,8 @@ const SIZE_H = 96
 // const LOW_QUALITY = 10
 // const HIGH_QUALITY = 90 
 const BLUR = 1
-const BRIGHTNESS = .4
+const BRIGHTNESS = .7
+const DARK = -.7
 
 const convert = (dataDir) => {
   let filesToProccess = []
@@ -44,9 +45,10 @@ const convert = (dataDir) => {
           .replace("." + FROM_FORMAT, "." + TO_FORMAT)
           .replace(FROM_DIR, TO_DIR)
           image.write("./" + newFileName)
-          image.blur(BLUR).write("./" + newFileName)
           image.clone().cloneQuiet().blur(BLUR).write("./" + newFileName.replace("goodQuality", "blured"))
           image.clone().cloneQuiet().brightness(BRIGHTNESS).write("./" + newFileName.replace("goodQuality", "bright"))
+          image.clone().cloneQuiet().brightness(DARK).write("./" + newFileName.replace("goodQuality", "dark"))
+          image.clone().cloneQuiet().rotate(30).write("./" + newFileName.replace("goodQuality", "rotate"))
       }
     })
   }) 
