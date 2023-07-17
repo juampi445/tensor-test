@@ -54,7 +54,7 @@ class TuberculosisDataset {
     this.trainData = loadImages(TRAIN_IMAGES_DIR);
     //TODO: parece que cuando corres el train usa la testData, 
     //entonces le cambie la direccion para que use las imagenes de /train
-    this.testData = loadImages(TRAIN_IMAGES_DIR);
+    this.testData = loadImages(TEST_IMAGES_DIR);
     console.log('Images loaded successfully.')
   }
 

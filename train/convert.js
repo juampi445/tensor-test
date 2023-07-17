@@ -4,13 +4,13 @@ const path = require('path');
 
 const FROM_FORMAT = "jpg"
 const TO_FORMAT = "jpeg"
-const FROM_DIR = `data${path.sep}temp3`
-const TO_DIR = `data${path.sep}train`
-const SIZE_W = 96
-const SIZE_H = 96
+const FROM_DIR = `data${path.sep}temp2`
+const TO_DIR = `data${path.sep}train${path.sep}`
+const SIZE_W = 300
+const SIZE_H = 300
 // const LOW_QUALITY = 10
 // const HIGH_QUALITY = 90 
-const BLUR = 1
+const BLUR = 0.5
 const BRIGHTNESS = .7
 const DARK = -.7
 
@@ -25,7 +25,7 @@ const convert = (dataDir) => {
     var filePath = path.join(dataDir, files[i]);
     filesToProccess.push(filePath)
   }
-  filesToProccess.map(i => {
+  filesToProccess.map((i, index) => {
     Jimp.read(i, function (err, image) {
       //If there is an error in reading the image, 
       //we will print the error in our terminal
@@ -41,14 +41,17 @@ const convert = (dataDir) => {
         //   // image.quality(LOW_QUALITY);
         //   image.blur(BLUR)
         // }
-        const newFileName = i
+        console.log(i, 'name')
+        const newFileName = `${TO_DIR}sample${index}.${i.split('.').pop()}`
           .replace("." + FROM_FORMAT, "." + TO_FORMAT)
+          .replace("." + "png", "." + TO_FORMAT)
           .replace(FROM_DIR, TO_DIR)
           image.write("./" + newFileName)
-          image.clone().cloneQuiet().blur(BLUR).write("./" + newFileName.replace("goodQuality", "blured"))
-          image.clone().cloneQuiet().brightness(BRIGHTNESS).write("./" + newFileName.replace("goodQuality", "bright"))
-          image.clone().cloneQuiet().brightness(DARK).write("./" + newFileName.replace("goodQuality", "dark"))
-          image.clone().cloneQuiet().rotate(30).write("./" + newFileName.replace("goodQuality", "rotate"))
+          image.clone().cloneQuiet().gaussian(2).write("./" + newFileName.replace("sample", "blured"))
+          image.clone().cloneQuiet().brightness(BRIGHTNESS).write("./" + newFileName.replace("sample", "bright"))
+          image.clone().cloneQuiet().brightness(DARK).write("./" + newFileName.replace("sample", "dark"))
+          // const rotated = image.clone().cloneQuiet().rotate(30, false).scale(1.45)
+          // rotated.crop(Math.floor((rotated.bitmap.width - SIZE_W) / 2),Math.floor((rotated.bitmap.height - SIZE_H) / 2),96,96).write("./" + newFileName.replace("sample", "rotate"))
       }
     })
   }) 
