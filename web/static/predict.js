@@ -37,7 +37,7 @@ $("#predict-button").click(async function () {
 		.map(function (p, i) { // this is Array.map
 			return {
 				probability: p,
-				className: TARGET_CLASSES[i] // we are selecting the value from the obj
+				className: TARGET_CLASSES_PRODUCT[i] // we are selecting the value from the obj
 			};
 		}).sort(function (a, b) {
 			return b.probability - a.probability;

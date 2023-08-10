@@ -5,3 +5,8 @@ TARGET_CLASSES = {
   3: "Oscuro",
   4: "rotada"
 };
+
+TARGET_CLASSES_PRODUCT = {
+  0: "Normal",
+  1: "Producto"
+};

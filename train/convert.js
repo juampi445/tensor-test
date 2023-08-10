@@ -4,7 +4,7 @@ const path = require('path');
 
 const FROM_FORMAT = "jpg"
 const TO_FORMAT = "jpeg"
-const FROM_DIR = `data${path.sep}temp2`
+const FROM_DIR = `data${path.sep}temp4`
 const TO_DIR = `data${path.sep}train${path.sep}`
 const SIZE_W = 300
 const SIZE_H = 300
@@ -41,17 +41,23 @@ const convert = (dataDir) => {
         //   // image.quality(LOW_QUALITY);
         //   image.blur(BLUR)
         // }
-        console.log(i, 'name')
         const newFileName = `${TO_DIR}sample${index}.${i.split('.').pop()}`
           .replace("." + FROM_FORMAT, "." + TO_FORMAT)
           .replace("." + "png", "." + TO_FORMAT)
           .replace(FROM_DIR, TO_DIR)
-          image.write("./" + newFileName)
-          image.clone().cloneQuiet().gaussian(2).write("./" + newFileName.replace("sample", "blured"))
-          image.clone().cloneQuiet().brightness(BRIGHTNESS).write("./" + newFileName.replace("sample", "bright"))
-          image.clone().cloneQuiet().brightness(DARK).write("./" + newFileName.replace("sample", "dark"))
+          console.log(i.includes('20230808'), 'data')
+          if (i.includes('20230808')) image.write("./" + newFileName.replace("sample", "producto"))
+          else {
+          //para deteccion de objetos
+          image.clone().cloneQuiet().write("./" + newFileName.replace("sample", "normal"))
+          //para defectos varios
+          // image.clone().cloneQuiet().gaussian(2).write("./" + newFileName.replace("sample", "blured"))
+          // image.clone().cloneQuiet().brightness(BRIGHTNESS).write("./" + newFileName.replace("sample", "bright"))
+          // image.clone().cloneQuiet().brightness(DARK).write("./" + newFileName.replace("sample", "dark"))
+
           // const rotated = image.clone().cloneQuiet().rotate(30, false).scale(1.45)
           // rotated.crop(Math.floor((rotated.bitmap.width - SIZE_W) / 2),Math.floor((rotated.bitmap.height - SIZE_H) / 2),96,96).write("./" + newFileName.replace("sample", "rotate"))
+          }
       }
     })
   }) 

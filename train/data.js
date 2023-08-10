@@ -30,10 +30,13 @@ function loadImages(dataDir) {
       .expandDims();
     images.push(imageTensor);
     console.log(files[i], 'file')
-    if (files[i].toLocaleLowerCase().includes('blur')) labels.push(1);
-    else if (files[i].toLocaleLowerCase().includes('bright')) labels.push(2);
-    else if (files[i].toLocaleLowerCase().includes('dark')) labels.push(3);
-    else if (files[i].toLocaleLowerCase().includes('rotate')) labels.push(4);
+    //PARA DEFECTOS
+    // if (files[i].toLocaleLowerCase().includes('blur')) labels.push(1);
+    // else if (files[i].toLocaleLowerCase().includes('bright')) labels.push(2);
+    // else if (files[i].toLocaleLowerCase().includes('dark')) labels.push(3);
+    // else if (files[i].toLocaleLowerCase().includes('rotate')) labels.push(4);
+    //PARA PRODUCTOS
+    if (files[i].toLocaleLowerCase().includes('condimento')) labels.push(1);
     else labels.push(0);
     console.log(labels, 'labels')
   }
@@ -61,14 +64,14 @@ class TuberculosisDataset {
   getTrainData() {
     return {
       images: tf.concat(this.trainData[0]),
-      labels: tf.oneHot(tf.tensor1d(this.trainData[1], 'int32'), 5).toFloat()
+      labels: tf.oneHot(tf.tensor1d(this.trainData[1], 'int32'), 2).toFloat()
     }
   }
 
   getTestData() {
     return {
       images: tf.concat(this.testData[0]),
-      labels: tf.oneHot(tf.tensor1d(this.testData[1], 'int32'), 5).toFloat()
+      labels: tf.oneHot(tf.tensor1d(this.testData[1], 'int32'), 2).toFloat()
     }
   }
 }
